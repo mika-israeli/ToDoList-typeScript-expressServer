@@ -1,0 +1,27 @@
+.addTaskContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Centers items vertically */
+}
+.addTaskInput{
+  border-color: blue;
+}
+
+.addButtom, .inputButtom {
+  color: #f73495;
+  cursor: pointer; 
+}
+
+.addButtom:hover, .inputButtom:hover {
+  background-color: #c7a1bb;
+  border-radius: 50%;
+}
+
+.addTaskInput {
+  margin-right: 10px;
+  padding: 15px;
+  color: #f73495;
+  font-size: 30px;
+  /* Additional styles for the input */
+}
+

@@ -1,0 +1,54 @@
+
+
+.task {
+    background-color: #924ae4; 
+    padding: 40px;
+    display: flex; 
+    border-radius: 5px;
+    align-items: center;
+    margin-bottom: 20px;
+ 
+   
+  }
+  
+  .taskInput {
+    position: absolute;  
+}
+
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  background-color: #924ae4;
+  border: 2px solid #ffffff;
+  margin-right: 10px;
+  border-color: #924ae4;
+ 
+}
+
+  .taskInput,
+  .taskTitle {
+    flex: 1;
+    margin-right: 10px;
+    padding: 10px;
+    font-size: 30px;
+    color: #924ae4;
+    background-color: bisque;
+    border: 0ch;
+    border-radius: 5px;
+   
+  }
+  .taskTitle.complete {
+    text-decoration: line-through; }
+  
+  .ButtomOfTask {
+    color: rgb(235, 15, 255);
+    padding: 10px 15px;
+    cursor: pointer;
+   
+  }
+  
+  .ButtomOfTask:hover {
+    background-color: #f18bdb;
+    border-radius: 30%;
+  }
+  

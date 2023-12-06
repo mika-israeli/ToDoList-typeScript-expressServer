@@ -1,0 +1,25 @@
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .header {
+    color: #d4149b;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 50px;
+    font-family: "Lucida Console", "Courier New", monospace;
+  }
+ 
+  .listOfTasks{
+    align-items: center;
+    margin: 10px ;
+
+  }
+  
+ 
+  
