@@ -1,19 +1,16 @@
-import { useState,useEffect} from "react";
+import { useState,useEffect,useContext} from "react";
 import { ToDoItem } from "./ToDoItem";
 import { AddItem } from "./AddItem";
 import "../css/toDoList.css"
 import ChecklistIcon from '@mui/icons-material/Checklist';
+import {Task} from "../interface/taskInterface";
+import {useTaskContext} from "../context/tasksContext"
 
-//interface of one task
-export interface Task {
-  id: number;
-  title: string;
-  complete: boolean;
-}
+
 
 export const ToDoList = () => {
- 
-  const [allTasks, setAllTasks] = useState<Task[]>([]);
+  //the context fron the taskContext 
+ const {allTasks, setAllTasks } =useTaskContext();
 
   //delete one task sending this functuon to ToDoItem
   const handleDeleteItem = (taskId: number) => {
@@ -54,23 +51,6 @@ const handleEditItem = (newTitle: string, taskId: number) => {
       return updatedTasks;
   });
 };
-
-//get the all task from the server
-  useEffect(() => {
-    fetch("http://localhost:8000/api/data")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setAllTasks(data);
-      })
-      .catch((error) => {
-        console.error("Fetch error:", error);
-      });
-  }, []);
 
 //function that call when there any change about all task (add,edit,delete...)
 // and the function will update the server with the change

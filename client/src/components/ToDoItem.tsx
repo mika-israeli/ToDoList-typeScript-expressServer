@@ -1,4 +1,4 @@
-import {Task} from "./ToDoList"
+import {Task} from "../interface/taskInterface";
 import { useState } from "react"
 import "../css/toDoItem.css"
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,7 +16,7 @@ type ToDoItemProps={
 export const ToDoItem =({task,handleDeleteItem,handleCompleteItem,handleEditItem}:ToDoItemProps) =>{
 const [editable,setEditable]=useState(true); 
 
-//sent to the ToDoList component whith task to delete
+    //sent to the ToDoList component whith task to delete
     const DeleteItem = () =>{
         handleDeleteItem(task.id);
     }
@@ -28,7 +28,7 @@ const [editable,setEditable]=useState(true);
     const EditTask =(event: React.ChangeEvent<HTMLInputElement>)=>{
         handleEditItem(event.target.value,task.id);
     }
-   //// when you press edit you can edit and also the save buttom will pop-up
+    //// when you press edit you can edit and also the save buttom will pop-up
     const handleEditable=()=>{
     setEditable(!editable);
     }
