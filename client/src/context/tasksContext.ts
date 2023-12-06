@@ -2,17 +2,21 @@ import  React, { ReactNode, createContext ,useContext ,useState,useEffect} from 
 import {Task} from "../interface/taskInterface";
 
 
+//which context you share
 interface TaskContextProps {
     allTasks :Task[];
+    //kind of use state type
     setAllTasks :React.Dispatch<React.SetStateAction<Task[]>>
 }
-
+//the task context can be undifined but we fix it with the function useTaskContext
 export const TaskContext =createContext <TaskContextProps | undefined > (undefined); 
 
+//reacrNode generic type 
 interface TaskContextProviderProps {
     children: ReactNode;
 }
 
+//send it to the app component this is functioanl aomponent that act like provider
 export const TaskContextProvider: React.FC<TaskContextProviderProps> = ({ children }) => {
     const [allTasks, setAllTasks] = useState<Task[]>([]);
   
@@ -41,6 +45,7 @@ export const TaskContextProvider: React.FC<TaskContextProviderProps> = ({ childr
     return React.createElement(TaskContext.Provider, { value: contextValue }, children);
   };
   
+  //Therapist if the tasks is undefined
 export const useTaskContext = ()=>{
     const context =useContext(TaskContext);
 
