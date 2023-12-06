@@ -31,6 +31,7 @@ export const TaskContextProvider: React.FC<TaskContextProviderProps> = ({ childr
         })
         .then((data) => {
           setAllTasks(data);
+         
         })
         .catch((error) => {
           console.error("Fetch error:", error);
