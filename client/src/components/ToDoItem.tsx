@@ -3,7 +3,7 @@ import { useState } from "react"
 import "../css/toDoItem.css"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+
 
 //props from ToDoList component
 type ToDoItemProps={

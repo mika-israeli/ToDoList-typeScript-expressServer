@@ -1,4 +1,3 @@
-import { useState,useEffect,useContext} from "react";
 import { ToDoItem } from "./ToDoItem";
 import { AddItem } from "./AddItem";
 import "../css/toDoList.css"

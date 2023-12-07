@@ -16,7 +16,7 @@ interface TaskContextProviderProps {
     children: ReactNode;
 }
 
-//send it to the app component this is functioanl aomponent that act like provider
+//send all the values to the app component this is functioanl component that act like provider
 export const TaskContextProvider: React.FC<TaskContextProviderProps> = ({ children }) => {
     const [allTasks, setAllTasks] = useState<Task[]>([]);
   
