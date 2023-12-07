@@ -46,11 +46,9 @@ export const TaskContextProvider: React.FC<TaskContextProviderProps> = ({ childr
     return React.createElement(TaskContext.Provider, { value: contextValue }, children);
   };
   
-  //Therapist if the tasks is undefined
+  //Therapist if the tasks is undefined ,custom hook
 export const useTaskContext = ()=>{
     const context =useContext(TaskContext);
-
-
     if(!context){
         throw new Error('useTaskContext must be used within a TaskContextProvider');
     }

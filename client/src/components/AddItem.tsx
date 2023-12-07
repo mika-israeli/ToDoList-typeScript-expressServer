@@ -44,6 +44,7 @@ export const AddItem = ({ handleAddItem }: AddItemProps) => {
     setShowInput(!showInput);
     setAddButtomClick(!addButtomClick)
     setSaveButtomClick(!saveButtomClicked);
+
   }
   //generate a random id for each task
   function generateRandomId() {

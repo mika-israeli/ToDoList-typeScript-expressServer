@@ -1,3 +1,4 @@
+
 import { ToDoItem } from "./ToDoItem";
 import { AddItem } from "./AddItem";
 import "../css/toDoList.css"
@@ -5,11 +6,14 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import {Task} from "../interface/taskInterface";
 import {useTaskContext} from "../context/tasksContext"
 
-
+ 
 
 export const ToDoList = () => {
   //the context fron the taskContext 
  const {allTasks, setAllTasks } =useTaskContext();
+
+
+
 
   //delete one task sending this functuon to ToDoItem
   const handleDeleteItem = (taskId: number) => {
