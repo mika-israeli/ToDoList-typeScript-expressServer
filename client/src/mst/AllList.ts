@@ -65,7 +65,7 @@ const AllTasksModel = types.model("allTasks", {
 
 //root model
 const RootModel =types.model("Root",{
-    all_tasks :AllTasksModel
+    allTasks :AllTasksModel
 })
 
 export interface Root extends Instance<typeof RootModel> { };

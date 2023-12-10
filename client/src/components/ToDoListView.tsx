@@ -8,35 +8,35 @@ import { SnapshotIn } from "mobx-state-tree";
 import { useRootStore } from "../mst/RootStoreContext";
 import { TaskModel } from "../mst/AllList";
 
-export const ToDoList = observer(() => {
+export const ToDoListView = observer(() => {
   const store = useRootStore();
- 
+
   //delete one task sending this functuon to ToDoItem
   const handleDeleteItem = (taskId: number) => {
-    store.all_tasks.deleteTask(taskId);
-    store.all_tasks.updateTasks(store.all_tasks.tasks);
+    store.allTasks.deleteTask(taskId);
+    store.allTasks.updateTasks(store.allTasks.tasks);
   };
 
   //complete or not complete a task
   const handleCompleteItem = (taskId: number) => {
-    store.all_tasks.completeTask(taskId);
-    store.all_tasks.updateTasks(store.all_tasks.tasks);
+    store.allTasks.completeTask(taskId);
+    store.allTasks.updateTasks(store.allTasks.tasks);
   };
 
   //add task to the all task
   const handleAddItem = (newTask: SnapshotIn<typeof TaskModel>) => {
-    store.all_tasks.addTask(newTask);
-    store.all_tasks.updateTasks(store.all_tasks.tasks);
+    store.allTasks.addTask(newTask);
+    store.allTasks.updateTasks(store.allTasks.tasks);
   };
 
   //edit task
   const handleEditItem = (taskId: number, newTitle: string) => {
-    store.all_tasks.editTask(taskId, newTitle);
-    store.all_tasks.updateTasks(store.all_tasks.tasks);
+    store.allTasks.editTask(taskId, newTitle);
+    store.allTasks.updateTasks(store.allTasks.tasks);
   };
 
   useEffect(() => {
-    store.all_tasks.fetchTasks();
+    store.allTasks.fetchTasks();
   }, []);
 
   return (
@@ -44,7 +44,7 @@ export const ToDoList = observer(() => {
       <h1 className="header">Todo List {<ChecklistIcon />}</h1>
       <AddItem handleAddItem={handleAddItem} />
       <ul className="listOfTasks">
-        {store.all_tasks.tasks.map((task: SnapshotIn<typeof TaskModel>) => (
+        {store.allTasks.tasks.map((task: SnapshotIn<typeof TaskModel>) => (
           <ToDoItem
             key={task.id}
             task={task}
