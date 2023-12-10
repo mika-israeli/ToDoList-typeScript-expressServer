@@ -34,7 +34,6 @@ const AllTasksModel = types.model("allTasks", {
                 body: JSON.stringify(newTasks),
             });
             const data = yield response.json();
-            console.log("data from fetch at the mts" , data)
             self.tasks = newTasks; // Update the local state
         } catch (error) {
             console.error("Failed to update tasks", error);
