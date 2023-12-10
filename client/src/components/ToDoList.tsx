@@ -3,80 +3,39 @@ import { ToDoItem } from "./ToDoItem";
 import { AddItem } from "./AddItem";
 import "../css/toDoList.css"
 import ChecklistIcon from '@mui/icons-material/Checklist';
-import {Task} from "../interface/taskInterface";
-import {useTaskContext} from "../context/tasksContext"
+import {observer} from "mobx-react";
+import {SnapshotIn} from "mobx-state-tree";
+import { useRootStore } from '../mst/RootStoreContext'
+import {TaskModel} from '../mst/AllList';
+
 
  
+export const ToDoList = observer(() => {
 
-export const ToDoList = () => {
-  //the context fron the taskContext 
- const {allTasks, setAllTasks } =useTaskContext();
+const store =useRootStore();
 
-
-
-
-  //delete one task sending this functuon to ToDoItem
+//delete one task sending this functuon to ToDoItem
   const handleDeleteItem = (taskId: number) => {
-    setAllTasks((prevTasks) => {
-        const updatedTasks = prevTasks.filter((task) => task.id !== taskId);
-        updateServerData(updatedTasks); //update the server
-        return updatedTasks;
-    });
+    store.all_tasks.deleteTask(taskId);
+  store.all_tasks.updateTasks(store.all_tasks.tasks);
 };
 
 //complete or not complete a task
 const handleCompleteItem = (taskId: number) => {
-  setAllTasks((prevTasks) => {
-      const updatedTasks = prevTasks.map((task) =>
-          task.id === taskId ? { ...task, complete: !task.complete } : task
-      );
-      updateServerData(updatedTasks); // Update the server
-      return updatedTasks;
-  });
+  store.all_tasks.completeTask(taskId);
+  store.all_tasks.updateTasks(store.all_tasks.tasks);
 };
 
 //add task to the all task
-  const handleAddItem = (newTask: Task) => {
-    setAllTasks((prevTasks) => {
-        const updatedTasks = [...prevTasks, newTask];
-        updateServerData(updatedTasks);//Update the server
-        return updatedTasks;
-    });
+  const handleAddItem = (newTask:  SnapshotIn<typeof TaskModel>) => {
+    store.all_tasks.addTask(newTask);
+    store.all_tasks.updateTasks(store.all_tasks.tasks);
 };
 
 //edit task
-const handleEditItem = (newTitle: string, taskId: number) => {
-  setAllTasks((prevTasks) => {
-      const updatedTasks = prevTasks.map((task) =>
-          task.id === taskId ? { ...task, title: newTitle } : task
-      );
-      updateServerData(updatedTasks); // Update the server
-      return updatedTasks;
-  });
-};
-
-//function that call when there any change about all task (add,edit,delete...)
-// and the function will update the server with the change
-  const updateServerData = (tasks: Task[]) => {
-    fetch('http://localhost:8000/api/data', {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(tasks),
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then((data) => {
-        console.log('Data updated successfully:', data);
-    })
-    .catch((error) => {
-        console.error('Fetch error:', error);
-    });
+const handleEditItem = (taskId: number,newTitle: string) => {
+  store.all_tasks.editTask(taskId, newTitle);
+  store.all_tasks.updateTasks(store.all_tasks.tasks);
 };
 
   return (
@@ -85,7 +44,7 @@ const handleEditItem = (newTitle: string, taskId: number) => {
       <h1 className="header">Todo List { <ChecklistIcon />}</h1> 
       <AddItem handleAddItem={handleAddItem} />
       <ul className="listOfTasks">
-        {allTasks.map((task) => (
+        {store.all_tasks.tasks.map((task:SnapshotIn<typeof TaskModel>) => (
           <ToDoItem 
             key={task.id}
             task={task}
@@ -97,4 +56,4 @@ const handleEditItem = (newTitle: string, taskId: number) => {
       </ul>
     </div>
   );
-};
+});

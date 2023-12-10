@@ -1,5 +1,6 @@
 import { useState } from "react";
-import {Task} from "../interface/taskInterface";
+import {TaskModel} from '../mst/AllList';
+import {SnapshotIn} from "mobx-state-tree";
 import "../css/addItem.css"
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
@@ -7,12 +8,12 @@ import CloseIcon from '@mui/icons-material/Close';
 
 //props from the ToDoList component
 type AddItemProps = {
-  handleAddItem: (task: Task) => void;
+  handleAddItem: (task:  SnapshotIn<typeof TaskModel>) => void;
 };
 
 export const AddItem = ({ handleAddItem }: AddItemProps) => {
   const [showInput, setShowInput] = useState(false);
-  const [newTask, setNewTask] = useState<Task>({
+  const [newTask, setNewTask] = useState< SnapshotIn<typeof TaskModel>>({
     id: generateRandomId(),
     title: "",
     complete: false,
@@ -27,7 +28,7 @@ export const AddItem = ({ handleAddItem }: AddItemProps) => {
 
   //sent the new task to the ToDoList component , reset the input and the save buttom ,reset the newTask varibale ,if there is an empty task you cand add it to the all task
   const handleSaveButtomClick = () => {
-    const updatedTask: Task = { ...newTask, id: generateRandomId() };
+    const updatedTask:  SnapshotIn<typeof TaskModel> = { ...newTask, id: generateRandomId() };
     if(updatedTask.title){
       handleAddItem(updatedTask);
     }

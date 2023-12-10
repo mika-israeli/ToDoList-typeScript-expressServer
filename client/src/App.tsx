@@ -1,12 +1,19 @@
 import { ToDoList } from "./components/ToDoList";
-import {TaskContextProvider} from "./context/tasksContext"
+import { RootModel } from "./mst/AllList";
+import {RootStoreProvider} from "./mst/RootStoreContext"
+
+const store =RootModel.create({
+  all_tasks:{
+      tasks:[]
+  }
+});
 
 function App() {
   return (
-    ///all the components can get to the conexr task
-    <TaskContextProvider>
+    ///all the components can get to the store
+    <RootStoreProvider value={store}>
    <ToDoList/>
-   </TaskContextProvider>
+   </RootStoreProvider>
   );
 }
 
