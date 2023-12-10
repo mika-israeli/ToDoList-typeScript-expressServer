@@ -14,25 +14,21 @@ export const ToDoListView = observer(() => {
   //delete one task sending this functuon to ToDoItem
   const handleDeleteItem = (taskId: number) => {
     store.allTasks.deleteTask(taskId);
-    store.allTasks.updateTasks(store.allTasks.tasks);
   };
 
   //complete or not complete a task
   const handleCompleteItem = (taskId: number) => {
     store.allTasks.completeTask(taskId);
-    store.allTasks.updateTasks(store.allTasks.tasks);
   };
 
   //add task to the all task
   const handleAddItem = (newTask: SnapshotIn<typeof TaskModel>) => {
     store.allTasks.addTask(newTask);
-    store.allTasks.updateTasks(store.allTasks.tasks);
   };
 
   //edit task
   const handleEditItem = (taskId: number, newTitle: string) => {
     store.allTasks.editTask(taskId, newTitle);
-    store.allTasks.updateTasks(store.allTasks.tasks);
   };
 
   useEffect(() => {

@@ -43,20 +43,24 @@ const AllTasksModel = types.model("allTasks", {
         const task = self.tasks.find(task => task.id === taskId);
         if (task) {
             task.complete = !task.complete;
+            this.updateTasks(self.tasks);
         }
     },
     editTask (taskId :number ,newTitle :string){
         const task = self.tasks.find(task => task.id === taskId);
         if(task){
             task.title=newTitle;
+            this.updateTasks(self.tasks);
         }
     },
     addTask (newTask: SnapshotIn<typeof TaskModel>){
         self.tasks.push(TaskModel.create(newTask));
+        this.updateTasks(self.tasks);
     },
     deleteTask(taskId:number){
         const updatedTasks = self.tasks.filter(task => task.id !== taskId);
         self.tasks.replace(updatedTasks);
+        this.updateTasks(self.tasks);
     },
     
 }));
