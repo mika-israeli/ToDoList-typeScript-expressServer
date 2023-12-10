@@ -1,20 +1,20 @@
 import { ToDoList } from "./components/ToDoList";
 import { RootModel } from "./mst/AllList";
-import {RootStoreProvider} from "./mst/RootStoreContext"
+import { RootStoreProvider } from "./mst/RootStoreContext";
 
-const store =RootModel.create({
-  all_tasks:{
-      tasks:[]
-  }
+const store = RootModel.create({
+  all_tasks: {
+    tasks: [],
+  },
 });
 
-function App() {
+const App = () => {
   return (
     ///all the components can get to the store
     <RootStoreProvider value={store}>
-   <ToDoList/>
-   </RootStoreProvider>
+      <ToDoList />
+    </RootStoreProvider>
   );
-}
+};
 
 export default App;
