@@ -5,6 +5,7 @@ import "../css/addItem.css";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import CloseIcon from "@mui/icons-material/Close";
+import { v4 as uuidv4 } from "uuid";
 
 //props from the ToDoList component
 type AddItemProps = {
@@ -14,7 +15,7 @@ type AddItemProps = {
 export const AddItem = ({ handleAddItem }: AddItemProps) => {
   const [showInput, setShowInput] = useState(false);
   const [newTask, setNewTask] = useState<SnapshotIn<typeof TaskModel>>({
-    id: generateRandomId(),
+    id: uuidv4(),
     title: "",
     complete: false,
   });
@@ -30,14 +31,14 @@ export const AddItem = ({ handleAddItem }: AddItemProps) => {
   const handleSaveButtomClick = () => {
     const updatedTask: SnapshotIn<typeof TaskModel> = {
       ...newTask,
-      id: generateRandomId(),
+      id: uuidv4(),
     };
     if (updatedTask.title) {
       handleAddItem(updatedTask);
     }
     setShowInput(!showInput);
     setSaveButtomClick(!saveButtomClicked);
-    setNewTask({ id: generateRandomId(), title: "", complete: false });
+    setNewTask({ id: uuidv4(), title: "", complete: false });
     setAddButtomClick(!addButtomClick);
   };
 
@@ -47,10 +48,6 @@ export const AddItem = ({ handleAddItem }: AddItemProps) => {
     setAddButtomClick(!addButtomClick);
     setSaveButtomClick(!saveButtomClicked);
   };
-  //generate a random id for each task
-  function generateRandomId() {
-    return Math.floor(Math.random() * 10000);
-  }
 
   return (
     <div className="addTaskContainer">

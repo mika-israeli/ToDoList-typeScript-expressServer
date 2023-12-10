@@ -1,9 +1,10 @@
 import {types,flow,SnapshotIn } from 'mobx-state-tree';
 import { Instance } from 'mobx-state-tree/dist/internal';
+import { v4 as uuidv4 } from 'uuid';
 
 //model of one task
 const TaskModel =types.model ("Task",{
-    id:types.number,
+    id:types.optional(types.identifier , ()=>`${uuidv4()}`),
     title :types.string,
     complete :types.boolean
 })
@@ -39,14 +40,14 @@ const AllTasksModel = types.model("allTasks", {
             console.error("Failed to update tasks", error);
         }
     }),
-    completeTask(taskId:number){
+    completeTask(taskId:any){
         const task = self.tasks.find(task => task.id === taskId);
         if (task) {
             task.complete = !task.complete;
             this.updateTasks(self.tasks);
         }
     },
-    editTask (taskId :number ,newTitle :string){
+    editTask (taskId :any ,newTitle :string){
         const task = self.tasks.find(task => task.id === taskId);
         if(task){
             task.title=newTitle;
@@ -57,7 +58,7 @@ const AllTasksModel = types.model("allTasks", {
         self.tasks.push(TaskModel.create(newTask));
         this.updateTasks(self.tasks);
     },
-    deleteTask(taskId:number){
+    deleteTask(taskId:any){
         const updatedTasks = self.tasks.filter(task => task.id !== taskId);
         self.tasks.replace(updatedTasks);
         this.updateTasks(self.tasks);

@@ -12,12 +12,12 @@ export const ToDoListView = observer(() => {
   const store = useRootStore();
 
   //delete one task sending this functuon to ToDoItem
-  const handleDeleteItem = (taskId: number) => {
+  const handleDeleteItem = (taskId: any) => {
     store.allTasks.deleteTask(taskId);
   };
 
   //complete or not complete a task
-  const handleCompleteItem = (taskId: number) => {
+  const handleCompleteItem = (taskId: any) => {
     store.allTasks.completeTask(taskId);
   };
 
@@ -27,7 +27,7 @@ export const ToDoListView = observer(() => {
   };
 
   //edit task
-  const handleEditItem = (taskId: number, newTitle: string) => {
+  const handleEditItem = (taskId: any, newTitle: string) => {
     store.allTasks.editTask(taskId, newTitle);
   };
 

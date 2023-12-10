@@ -6,12 +6,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { observer } from "mobx-react";
 
+
 //props from ToDoList component
 type ToDoItemProps = {
   task: SnapshotIn<typeof TaskModel>;
-  handleDeleteItem: (taskId: number) => void;
-  handleCompleteItem: (taskId: number) => void;
-  handleEditItem: (taskId: number, newTitle: string) => void;
+  handleDeleteItem: (taskId: any) => void;
+  handleCompleteItem: (taskId: any) => void;
+  handleEditItem: (taskId: any, newTitle: string) => void;
 };
 export const ToDoItem = observer(
   ({
