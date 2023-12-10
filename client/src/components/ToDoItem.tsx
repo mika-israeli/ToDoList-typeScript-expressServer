@@ -6,13 +6,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { observer } from "mobx-react";
 
-
 //props from ToDoList component
 type ToDoItemProps = {
   task: SnapshotIn<typeof TaskModel>;
-  handleDeleteItem: (taskId: any) => void;
-  handleCompleteItem: (taskId: any) => void;
-  handleEditItem: (taskId: any, newTitle: string) => void;
+  handleDeleteItem: (task: SnapshotIn<typeof TaskModel>) => void;
+  handleCompleteItem: (task: SnapshotIn<typeof TaskModel>) => void;
+  handleEditItem: (
+    task: SnapshotIn<typeof TaskModel>,
+    newTitle: string
+  ) => void;
 };
 export const ToDoItem = observer(
   ({
@@ -25,15 +27,15 @@ export const ToDoItem = observer(
 
     //sent to the ToDoList component whith task to delete
     const DeleteItem = () => {
-      handleDeleteItem(task.id);
+      handleDeleteItem(task);
     };
     //sent to the ToDoList component whith task to complete or not complete
     const CompleteTask = () => {
-      handleCompleteItem(task.id);
+      handleCompleteItem(task);
     };
     ///send the change and update it in the task
     const EditTask = (event: React.ChangeEvent<HTMLInputElement>) => {
-      handleEditItem(task.id, event.target.value);
+      handleEditItem(task, event.target.value);
     };
     //// when you press edit you can edit and also the save buttom will pop-up
     const handleEditable = () => {

@@ -12,13 +12,13 @@ export const ToDoListView = observer(() => {
   const store = useRootStore();
 
   //delete one task sending this functuon to ToDoItem
-  const handleDeleteItem = (taskId: any) => {
-    store.allTasks.deleteTask(taskId);
+  const handleDeleteItem = (task: SnapshotIn<typeof TaskModel>) => {
+    store.allTasks.deleteTask(task);
   };
 
   //complete or not complete a task
-  const handleCompleteItem = (taskId: any) => {
-    store.allTasks.completeTask(taskId);
+  const handleCompleteItem = (task: SnapshotIn<typeof TaskModel>) => {
+    store.allTasks.completeTask(task);
   };
 
   //add task to the all task
@@ -27,12 +27,16 @@ export const ToDoListView = observer(() => {
   };
 
   //edit task
-  const handleEditItem = (taskId: any, newTitle: string) => {
-    store.allTasks.editTask(taskId, newTitle);
+  const handleEditItem = (
+    task: SnapshotIn<typeof TaskModel>,
+    newTitle: string
+  ) => {
+    store.allTasks.editTask(task, newTitle);
   };
 
   useEffect(() => {
     store.allTasks.fetchTasks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -40,15 +44,17 @@ export const ToDoListView = observer(() => {
       <h1 className="header">Todo List {<ChecklistIcon />}</h1>
       <AddItem handleAddItem={handleAddItem} />
       <ul className="listOfTasks">
-        {store.allTasks.tasks.map((task: SnapshotIn<typeof TaskModel>) => (
-          <ToDoItem
-            key={task.id}
-            task={task}
-            handleDeleteItem={handleDeleteItem}
-            handleCompleteItem={handleCompleteItem}
-            handleEditItem={handleEditItem}
-          />
-        ))}
+        {Array.from(store.allTasks.tasks.values()).map(
+          (task: SnapshotIn<typeof TaskModel>) => (
+            <ToDoItem
+              key={task.id}
+              task={task}
+              handleDeleteItem={handleDeleteItem}
+              handleCompleteItem={handleCompleteItem}
+              handleEditItem={handleEditItem}
+            />
+          )
+        )}
       </ul>
     </div>
   );

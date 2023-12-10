@@ -4,7 +4,7 @@ import { RootStoreProvider } from "./mst/RootStoreContext";
 
 const store = RootModel.create({
   allTasks: {
-    tasks: [],
+    tasks: {},
   },
 });
 
