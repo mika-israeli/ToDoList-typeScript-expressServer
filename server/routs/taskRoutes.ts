@@ -1,11 +1,10 @@
-const path = require('path');
-const fs = require('fs');
-import express from 'express';
+const path = require("path");
+const fs = require("fs");
+import express from "express";
 const router = express.Router();
-import { getAllTask ,UpdateAllTasks } from '../services/tasks.controller';
+import { getAllTask, UpdateAllTasks } from "../services/tasks.controller";
 
-router.get('/', getAllTask); 
-router.put('/',UpdateAllTasks);
+router.get("/", getAllTask);
+router.put("/", UpdateAllTasks);
 
-
-module.exports =router;
+module.exports = router;
