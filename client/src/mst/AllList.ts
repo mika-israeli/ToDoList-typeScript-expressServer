@@ -26,12 +26,10 @@ const AllTasksModel = types
           "http://localhost:8000/api/data"
         );
         const dataArray = yield response.json();
-        console.log(dataArray);
         self.tasks.clear();
-        //fhange from array to object map
+        //change from array to object map
         dataArray.forEach((taskData: SnapshotIn<typeof TaskModel>) => {
           if (taskData) {
-            console.log(taskData);
             self.tasks.put(taskData);
           }
         });
@@ -49,7 +47,6 @@ const AllTasksModel = types
         );
 
         const jsonString = JSON.stringify(tasksArray); // Convert the array to a JSON string
-        console.log(jsonString);
 
         const response = yield fetch("http://localhost:8000/api/data", {
           method: "PUT",

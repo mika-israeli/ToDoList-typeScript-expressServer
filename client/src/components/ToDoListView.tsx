@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { ToDoItem } from "./ToDoItem";
 import { AddItem } from "./AddItem";
