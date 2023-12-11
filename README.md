@@ -4,5 +4,5 @@ to run this project :
 termial 1:
 cd client=> npm i =>npm start
 terminal 2: 
-cd server=>npm i =>npm eun dev
+cd server=>npm i =>npm run dev
 ------------------------------------------------
