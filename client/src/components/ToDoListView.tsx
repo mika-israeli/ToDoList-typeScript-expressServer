@@ -36,7 +36,6 @@ export const ToDoListView = observer(() => {
 
   useEffect(() => {
     store.allTasks.fetchTasks();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

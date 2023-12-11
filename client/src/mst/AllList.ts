@@ -1,5 +1,10 @@
-import { types, flow, SnapshotIn } from "mobx-state-tree";
-import { Instance } from "mobx-state-tree/dist/internal";
+import {
+  types,
+  flow,
+  Instance,
+  getSnapshot,
+  SnapshotIn,
+} from "mobx-state-tree";
 import { v4 as uuidv4 } from "uuid";
 
 //model of one task
@@ -23,32 +28,39 @@ const AllTasksModel = types
         const dataArray = yield response.json();
         console.log(dataArray);
         self.tasks.clear();
+        //fhange from array to object map
         dataArray.forEach((taskData: SnapshotIn<typeof TaskModel>) => {
           if (taskData) {
             console.log(taskData);
             self.tasks.put(taskData);
           }
         });
-          
       } catch (error) {
         console.error("Failed to fetch all tasks from the server", error);
       }
     }),
 
     // Action to update tasks on the server
-    updateTasks: flow(function* (newTasks) {
+    updateTasks: flow(function* () {
       try {
+        // Convert the tasks map to an array
+        const tasksArray = Array.from(self.tasks.values()).map((task) =>
+          getSnapshot(task)
+        );
+
+        const jsonString = JSON.stringify(tasksArray); // Convert the array to a JSON string
+        console.log(jsonString);
+
         const response = yield fetch("http://localhost:8000/api/data", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(newTasks),
+          body: jsonString,
         });
-        self.tasks.clear();
-    newTasks.forEach((taskData: SnapshotIn<typeof TaskModel>) => {
-      self.tasks.put(taskData);
-    });
+        if (!response.ok) {
+          throw new Error("Server responded with an error.");
+        }
       } catch (error) {
         console.error("Failed to update tasks", error);
       }
@@ -58,34 +70,31 @@ const AllTasksModel = types
         const fetchedTask = self.tasks.get(task.id);
         if (fetchedTask) {
           fetchedTask.complete = !fetchedTask.complete;
-          this.updateTasks(self.tasks);
+          this.updateTasks();
         }
       }
     },
     editTask(task: SnapshotIn<typeof TaskModel>, newTitle: string) {
-      if(task.id && self.tasks.get(task.id)){
-        const updateTask =self.tasks.get(task.id);
-        if(updateTask){
-        updateTask.title=newTitle;
-        self.tasks.delete(task.id);
-        this.addTask(updateTask);
-        this.updateTasks(self.tasks);
+      if (task.id && self.tasks.get(task.id)) {
+        const updateTask = self.tasks.get(task.id);
+        if (updateTask) {
+          updateTask.title = newTitle;
+          self.tasks.delete(task.id);
+          this.addTask(updateTask);
+          this.updateTasks();
         }
       }
-
-     
     },
     addTask(newTask: SnapshotIn<typeof TaskModel>) {
-        const task = TaskModel.create(newTask);
-        self.tasks.put(task);
-        this.updateTasks(self.tasks);
+      const task = TaskModel.create(newTask);
+      self.tasks.put(task);
+      this.updateTasks();
     },
     deleteTask(task: SnapshotIn<typeof TaskModel>) {
-      if(task.id && self.tasks.get(task.id)){
+      if (task.id && self.tasks.get(task.id)) {
         self.tasks.delete(task.id);
-        this.updateTasks(self.tasks);
+        this.updateTasks();
       }
-     
     },
   }));
 
